@@ -19,9 +19,9 @@ variable "cloudcontrolapi_endpoint" {
 }
 
 variable "vpc_name" {
-  description = "Name of the VPC Update"
+  description = "Name of the VPC"
   type        = string
-  default     = "vpc-demo"
+  default     = "vpc-demo-update"
 }
 
 variable "vpc_description" {
@@ -43,7 +43,7 @@ variable "subnet_name" {
 }
 
 variable "subnet_description" {
-  description = "Description of the subnet update11"
+  description = "Description of the subnet"
   type        = string
   default     = "Subnet created by Terraform"
 }
