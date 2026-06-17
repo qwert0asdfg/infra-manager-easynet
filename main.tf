@@ -21,7 +21,7 @@ variable "cloudcontrolapi_endpoint" {
 variable "vpc_name" {
   description = "Name of the VPC"
   type        = string
-  default     = "vpc-demo"
+  default     = "vpc-demo-update"
 }
 
 variable "vpc_description" {
@@ -93,7 +93,7 @@ resource "volcenginecc_vpc_vpc" "vpc-demo" {
 resource "volcenginecc_vpc_subnet" "subnet-demo" {
   vpc_id      = volcenginecc_vpc_vpc.vpc-demo.id
   zone_id     = var.subnet_zone_id
-  subnet_name = "subnet-demo-update"
+  subnet_name = var.subnet_name
   description = var.subnet_description
   cidr_block  = var.subnet_cidr_block
 
