@@ -39,7 +39,7 @@ variable "vpc_cidr_block" {
 variable "subnet_name" {
   description = "Name of the subnet"
   type        = string
-  default     = "subnet-demo-update-code"
+  default     = "subnet-demo"
 }
 
 variable "subnet_description" {
@@ -93,7 +93,7 @@ resource "volcenginecc_vpc_vpc" "vpc-demo" {
 resource "volcenginecc_vpc_subnet" "subnet-demo" {
   vpc_id      = volcenginecc_vpc_vpc.vpc-demo.id
   zone_id     = var.subnet_zone_id
-  subnet_name = var.subnet_name
+  subnet_name = "subnet-demo-update"
   description = var.subnet_description
   cidr_block  = var.subnet_cidr_block
 
