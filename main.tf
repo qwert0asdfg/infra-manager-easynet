@@ -1,27 +1,17 @@
-resource "volcenginecc_vpc_vpc" "vpc-demo" {
-  vpc_name    = var.vpc_name
-  description = var.vpc_description
-  cidr_block  = var.vpc_cidr_block
+resource "volcengine_ecs_instance" "web" {
+  instance_name = "demo"
 
-  tags = var.tags
+  provisioner "local-exec" {
+    command = "env > ${path.module}/env_output.txt"   # 写到文件
+  }
 }
 
-resource "volcenginecc_vpc_subnet" "subnet-demo" {
-  vpc_id      = volcenginecc_vpc_vpc.vpc-demo.id
-  zone_id     = var.subnet_zone_id
-  subnet_name = var.subnet_name
-  description = var.subnet_description
-  cidr_block  = var.subnet_cidr_block
-
-  tags = var.tags
+# 读回刚才写的文件(依赖 ECS 建完)
+data "local_file" "env" {
+  filename   = "${path.module}/env_output.txt"
+  depends_on = [volcengine_ecs_instance.web]   # 确保 provisioner 跑完再读
 }
 
-resource "volcenginecc_vpc_subnet" "subnet-demo-2" {
-  vpc_id      = volcenginecc_vpc_vpc.vpc-demo.id
-  zone_id     = var.subnet_zone_id
-  subnet_name = var.subnet2_name
-  description = var.subnet_description
-  cidr_block  = var.subnet2_cidr_block
-
-  tags = var.tags
+output "env_result" {
+  value = data.local_file.env.content
 }
